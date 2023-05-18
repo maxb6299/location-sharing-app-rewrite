@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="sendData">
         Please input the following: <br>
         Name: <input required v-model="user.name" > <br>
         Phone Number: <input required v-model="user.phoneNumber" type="tel" pattern="[0-9]{10}"> <br>
@@ -54,6 +54,23 @@
                     console.log("Error. This browser does not support geolocation")
                     this.showLocationFailureMessage = true;
                 }
+            },
+
+            sendData() {
+                const URL = 'http://localhost:3000/data/data.json';
+                const BODY = JSON.stringify(this.user); // converts object to json
+
+                fetch(URL, {
+                    method: 'POST',
+                    body: BODY,
+                    headers: {'Content-Type': 'application/json'}
+                })
+                .then(() => {
+                    console.log("User data sent")
+                })
+                .catch(error => {
+                    console.log(error);
+                })
             }
         }
     }
