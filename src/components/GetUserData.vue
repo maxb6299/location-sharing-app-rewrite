@@ -4,10 +4,10 @@
         Name: <input required v-model="user.name" > <br>
         Phone Number: <input required v-model="user.phoneNumber" type="tel" pattern="[0-9]{10}"> <br>
 
-        <button @click="getLocation">Share your location</button>
+        <button @click="getLocation" v-if="showGetLocationButton">Share your location</button>
         <div v-if="showLocationFailureMessage" >Error. Please share your location</div>
 
-        <input type="submit" value="Submit Data">
+        <input type="submit" value="Submit Data" v-if="showSubmitButton">
     </form>
 
 
@@ -31,7 +31,9 @@
                     longitude: ''
                 },
 
-                showLocationFailureMessage: false
+                showLocationFailureMessage: false,
+                showGetLocationButton: true,
+                showSubmitButton: false,
             }
         },
 
@@ -41,7 +43,10 @@
                     navigator.geolocation.getCurrentPosition(position => {
                         this.user.latitude = position.coords.latitude;
                         this.user.longitude = position.coords.longitude; 
+
                         this.showLocationFailureMessage = false;
+                        this.showGetLocationButton = false; false
+                        this.showSubmitButton = true;
                     }, failure => { // user denied location
                         this.showLocationFailureMessage = true;
                     });
