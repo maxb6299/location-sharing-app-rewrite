@@ -1,6 +1,10 @@
 const fs = require("fs");
+const cors = require("cors");
 const express = require("express");
 const app = express();
+
+app.use(cors());
+app.use(express.json()); // middleware for handling json data
 
 const FILE_PATH = "./server/data/data.json"; // path to all user data
 
