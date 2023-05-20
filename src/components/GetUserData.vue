@@ -12,7 +12,7 @@
 
 
     <!-- for testing purposes -->
-    <div>
+    <!-- <div>
         Input Coordinates: <br>
         <form>
             Latitude<input v-model="user.latitude"><br>
@@ -25,7 +25,7 @@
         Latitude: {{ user.latitude }} <br>
         Longitude: {{ user.longitude }} <br>
         Address: {{ user.address }} <br>
-    </div>
+    </div> -->
 </template>
 
 <script>
