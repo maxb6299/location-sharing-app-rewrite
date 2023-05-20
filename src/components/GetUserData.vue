@@ -13,6 +13,13 @@
 
     <!-- for testing purposes -->
     <div>
+        Input Coordinates: <br>
+        <form>
+            Latitude<input v-model="user.latitude"><br>
+            Longitude<input v-model="user.longitude"><br>
+        </form>
+        <button @click="setAddress">setAddress()</button>
+
         Name: {{ user.name }} <br>
         Phone Number: {{ user.phoneNumber }} <br>
         Latitude: {{ user.latitude }} <br>
@@ -93,9 +100,27 @@
                 })
                 .then(() => {
                     console.log("User data sent")
+                    this.sendSlackMessage();
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(`Error sending user data to server: ${error}`);
+                })
+            },
+
+            sendSlackMessage() {
+                const SLACK_URL = 'https://hooks.slack.com/services/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'
+                const BODY = JSON.stringify(this.user); // converts object to json
+
+                fetch (SLACK_URL, {
+                    method: 'POST',
+                    body: BODY,
+                    headers: {'Content-Type': 'application/json'}
+                })
+                .then(() => {
+                    console.log("Slack message sent")
+                })
+                .catch(error => {
+                    console.log(`Error sending slack message: ${error}`);
                 })
             }
         }
