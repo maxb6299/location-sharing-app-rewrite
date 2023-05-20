@@ -4,11 +4,11 @@
         Name: <input required v-model="user.name" > <br>
         Phone Number: <input required v-model="user.phoneNumber" type="tel" pattern="[0-9]{10}"> <br>
 
-        <button @click="getLocation" v-if="showGetLocationButton">Share your location</button>
-        <div v-if="showLocationFailureMessage" >Error. Please share your location</div>
-
         <input type="submit" value="Submit Data" v-if="showSubmitButton">
     </form>
+
+    <button @click="getLocation" v-if="showGetLocationButton">Share your location</button>
+    <div v-if="showLocationFailureMessage" >Error. Please share your location</div>
 
 
     <!-- for testing purposes -->
