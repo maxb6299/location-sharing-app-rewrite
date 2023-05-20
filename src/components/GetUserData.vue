@@ -1,3 +1,10 @@
+<!-- GetUserData.vue
+Contains a form for the user's name and phone number as well as a button for 
+the user to share their location. Then once the location is successfully 
+shared, the submit-location button dissapears and the submit data button 
+appears. Once pressed, the user data is send to the server via a POST request
+to the backend, where it is stored in the array in the userData.json file -->
+
 <template>
     <form @submit.prevent="sendData">
         Please input the following: <br>
@@ -47,6 +54,11 @@
         },
 
         methods: {
+            // asks user for their current location
+            // sets the user object's coordinates appropriately and calls the
+            // setAddress function
+            // if user gives location, the function modifies booleans to hide
+            // the submit location button and shows the submit data button
             getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(position => {
@@ -54,7 +66,7 @@
                         this.user.longitude = position.coords.longitude; 
 
                         this.showLocationFailureMessage = false;
-                        this.showGetLocationButton = false; false
+                        this.showGetLocationButton = false;
                         this.showSubmitButton = true;
 
                         this.setAddress(); 
@@ -89,6 +101,8 @@
                     .catch(error => console.log("Error" + error))
             },
 
+            // sends data to server via POST request
+            // if successful, calls sendSlackMessage function
             sendData() {
                 const URL = 'http://localhost:3000/data/data.json';
                 const BODY = JSON.stringify(this.user); // converts object to json
@@ -107,6 +121,7 @@
                 })
             },
 
+            // sends a POST request to the slack url
             sendSlackMessage() {
                 const SLACK_URL = 'https://hooks.slack.com/services/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'
                 const BODY = JSON.stringify(this.user); // converts object to json
