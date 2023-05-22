@@ -1,5 +1,7 @@
 # location-sharing-app
 
+![Alt text](/screenshot.jpg?raw=true)
+
 ## Project setup
 
 ```
